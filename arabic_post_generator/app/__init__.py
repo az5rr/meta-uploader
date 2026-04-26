@@ -1,0 +1,2 @@
+"""Arabic post generator package."""
+

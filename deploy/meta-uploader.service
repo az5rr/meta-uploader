@@ -1,0 +1,14 @@
+[Unit]
+Description=Meta Uploader API and scheduler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Meta-Uploader
+ExecStart=%h/Meta-Uploader/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

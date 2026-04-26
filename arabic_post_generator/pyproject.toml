@@ -1,0 +1,19 @@
+[project]
+name = "arabic-post-generator"
+version = "0.1.0"
+description = "Exact Arabic Unicode post renderer for Instagram."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi",
+  "freetype-py",
+  "jinja2",
+  "pillow",
+  "python-multipart",
+  "uharfbuzz",
+  "uvicorn",
+]
+
+[project.scripts]
+generate_duaa_post = "app.cli:generate_duaa_post"
+generate_azkar_post = "app.cli:generate_azkar_post"
+generate_batch_posts = "app.cli:generate_batch_posts"

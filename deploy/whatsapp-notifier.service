@@ -1,0 +1,14 @@
+[Unit]
+Description=Meta Uploader WhatsApp Web notifier
+After=network-online.target meta-uploader.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Meta-Uploader
+ExecStart=%h/Meta-Uploader/runtime/whatsapp_notifier.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

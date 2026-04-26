@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arabic Post Review</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="composer">
+        <p class="eyebrow">Local Exact Renderer</p>
+        <h1>Arabic Islamic post generator</h1>
+        <p class="summary">Exact Unicode text is stored first, then rendered locally into the PNG. No image model letter generation is involved.</p>
+        <p class="summary">All feed posts use one fixed canvas size: 1080x1080.</p>
+        {% if error %}
+        <p class="summary" style="color:#9f2d20;">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="/generate" class="form">
+          <label>Arabic text
+            <textarea name="text" rows="7" dir="rtl">{{ default_text }}</textarea>
+          </label>
+          <div class="row">
+            <label>Category
+              <input name="category" value="duaa" />
+            </label>
+            <label>Font
+              <select name="font">
+                <option value="amiri" selected>Amiri</option>
+                <option value="noto_naskh">Noto Naskh Arabic</option>
+                <option value="scheherazade">Scheherazade New</option>
+              </select>
+            </label>
+            <label>Size
+              <input name="size" type="number" value="78" />
+            </label>
+          </div>
+          <label class="inline"><input type="checkbox" name="allow_repeat" /> Allow repeated duaa manually</label>
+          <button type="submit">Generate layout</button>
+        </form>
+      </section>
+
+      <section class="gallery">
+        <div class="gallery-head">
+          <h2>Review panel</h2>
+          <p>Preview, regenerate, and approve output files for posting.</p>
+        </div>
+        {% for item in items %}
+        <article class="card">
+          {% if item.image_path %}
+          <img src="/generated/{{ item.category }}/{{ item.created_at[:10] }}/{{ item.title }}.png" alt="Generated Arabic post preview" />
+          {% endif %}
+          <div class="card-copy">
+            <p class="badge">{{ item.layout.font_key if item.layout else "font" }}</p>
+            <h3>{{ item.category }}</h3>
+            <p dir="rtl">{{ item.source_text }}</p>
+            <p class="meta">Approved: {{ "yes" if item.approved else "no" }}</p>
+            <form method="post" action="/approve">
+              <input type="hidden" name="metadata_path" value="{{ item.metadata_path }}" />
+              <button type="submit">Approve</button>
+            </form>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+    </main>
+  </body>
+</html>
