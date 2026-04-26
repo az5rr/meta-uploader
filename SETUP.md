@@ -1,6 +1,7 @@
 # Setup Guide
 
-This repository is safe to publish, but it does not include live credentials, browser sessions, media, or database state.
+This document is the shortest path to a working installation.
+For a deeper operator guide, see [docs/BUILD.md](./docs/BUILD.md).
 
 ## Prerequisites
 
@@ -11,24 +12,20 @@ This repository is safe to publish, but it does not include live credentials, br
   - `instagram_business_basic`
   - `instagram_business_content_publish`
 - A valid Instagram user access token
+- Your Instagram user id
 
 ## 1. Clone and install
 
 ```bash
 git clone <your-repo-url> Meta-Uploader
 cd Meta-Uploader
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+make install
 ```
 
 If you want the WhatsApp notifier:
 
 ```bash
-cd runtime
-npm install
-npx playwright install chromium
-cd ..
+make install-whatsapp
 ```
 
 ## 2. Configure environment variables
@@ -61,6 +58,8 @@ WhatsApp notifier keys:
 - `WHATSAPP_STATUS_TIMEZONE`
 - `WHATSAPP_HEADLESS`
 
+You can also review the full example in `.env.example`.
+
 If you do not know your Instagram user id:
 
 ```bash
@@ -70,8 +69,7 @@ curl "https://graph.instagram.com/me?fields=user_id,username&access_token=YOUR_T
 ## 3. Run the API
 
 ```bash
-source .venv/bin/activate
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+make run
 ```
 
 Useful endpoints:
@@ -119,3 +117,9 @@ systemctl --user enable --now whatsapp-notifier.service
 - The API expects a public `video_url` for Meta-hosted publishing.
 - Runtime helpers can temporarily stage local files before job creation.
 - Generated media, database files, browser session state, and inbox assets are excluded from Git by default.
+
+## Recommended next reading
+
+- [docs/BUILD.md](./docs/BUILD.md)
+- [docs/API.md](./docs/API.md)
+- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)

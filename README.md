@@ -1,44 +1,54 @@
 # Meta-Uploader
 
-Meta-Uploader is a small Instagram publishing stack built around the Meta Graph API.
-It combines:
+Meta-Uploader is an Instagram publishing stack built around the Meta Graph API.
+It provides a scheduler-backed API for publishing reels and posts, plus optional
+WhatsApp automation and an Arabic feed-post generator.
 
-- a FastAPI service for scheduling and publishing reels/posts
-- a SQLite-backed queue
-- optional WhatsApp Web command handling
-- an Arabic post generator used for feed assets
+## Features
 
-## Project layout
+- FastAPI service for scheduling and immediate publishing
+- SQLite-backed job queue
+- Manual-job workflow for browser-assisted publishing
+- Optional WhatsApp Web notifier and command handler
+- Arabic feed-post generator subsystem
 
-- `app/`: API, scheduling, publish logic, database access
-- `bin/`: helper scripts for staging and queue creation
-- `runtime/`: operational helpers and WhatsApp automation scripts
-- `arabic_post_generator/`: post image generator
-- `deploy/`: example systemd user units
+## Repository structure
+
+- `app/`: API, scheduler, Meta integration, persistence access
+- `arabic_post_generator/`: Arabic rendering subsystem
+- `bin/`: helper scripts
+- `runtime/`: WhatsApp runtime helpers
+- `deploy/`: systemd user service examples
+- `docs/`: architecture, API, build, deployment, and development guides
 
 ## Quick start
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+make install
 cp .env.example .env
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+make run
 ```
 
 Then fill `.env` with your own Meta credentials and optional WhatsApp settings.
 
-## Full setup
+## Documentation
 
-See [SETUP.md](./SETUP.md) for a publishable installation guide that covers:
+- [SETUP.md](./SETUP.md)
+- [NEW_USER_CHECKLIST.md](./NEW_USER_CHECKLIST.md)
+- [docs/BUILD.md](./docs/BUILD.md)
+- [docs/API.md](./docs/API.md)
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
+- [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-- Meta API prerequisites
-- environment variables
-- local development
-- WhatsApp notifier setup
-- optional systemd services
+## Core build path
 
-Before running the project, also read [NEW_USER_CHECKLIST.md](./NEW_USER_CHECKLIST.md) for the account-specific items every new operator must supply.
+If you want the full step-by-step build flow, start here:
+
+1. Read [NEW_USER_CHECKLIST.md](./NEW_USER_CHECKLIST.md)
+2. Follow [SETUP.md](./SETUP.md)
+3. Use [docs/BUILD.md](./docs/BUILD.md) for the full operator build guide
 
 ## API examples
 

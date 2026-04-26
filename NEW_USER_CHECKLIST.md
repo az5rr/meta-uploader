@@ -1,6 +1,7 @@
 # New User Checklist
 
-This project is sanitized for publishing, but it is not plug-and-play until you add your own accounts, credentials, and runtime setup.
+This project is safe to clone publicly, but every operator must supply their own accounts,
+credentials, runtime sessions, and publishing decisions before it is usable.
 
 ## What you need
 
@@ -89,7 +90,9 @@ Some helper scripts in `runtime/` are examples from one deployment and may need 
 3. `WHATSAPP_SETUP.md`
 4. `SYSTEM_OVERVIEW.md`
 
-## Summary
+## Next step
 
-This repository provides the application code and examples.
-You must still connect it to your own Meta account, your own WhatsApp session, your own media workflow, and your own publishing strategy.
+After this checklist, continue with:
+
+1. [SETUP.md](./SETUP.md)
+2. [docs/BUILD.md](./docs/BUILD.md)
